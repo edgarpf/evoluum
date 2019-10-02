@@ -13,7 +13,7 @@
 	<artifactId>localidade</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>localidade</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Teste seletivo</description>
 
 	<properties>
 		<java.version>1.8</java.version>
