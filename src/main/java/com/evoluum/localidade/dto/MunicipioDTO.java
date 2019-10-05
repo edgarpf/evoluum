@@ -1,19 +1,18 @@
 package com.evoluum.localidade.dto;
 
 public class MunicipioDTO {
-	private String nome;
-	private Microrregiao microrregiao;
-	
-	public String getNome() {
-		return nome;
+	private int id;
+
+	public MunicipioDTO(int id) {
+		super();
+		this.id = id;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+
+	public int getId() {
+		return id;
 	}
-	public Microrregiao getMicrorregiao() {
-		return microrregiao;
-	}
-	public void setMicrorregiao(Microrregiao microrregiao) {
-		this.microrregiao = microrregiao;
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

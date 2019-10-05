@@ -7,12 +7,12 @@ public class LocalDTO {
 	private String nomeCidade;
 	private String nomeMesorregiao;
 
-	public LocalDTO(EstadoDTO estadoDTO, MunicipioDTO municipioDTO) {
-		this.idEstado = estadoDTO.getId();
-		this.siglaEstado = estadoDTO.getSigla();
-		this.regiaoNome = estadoDTO.getRegiao().getNome();
-		this.nomeCidade = municipioDTO.getNome();
-		this.nomeMesorregiao = municipioDTO.getMicrorregiao().getMesorregiao().getNome();
+	public LocalDTO(Estado estado, Municipio municipio) {
+		this.idEstado = estado.getId();
+		this.siglaEstado = estado.getSigla();
+		this.regiaoNome = estado.getRegiao().getNome();
+		this.nomeCidade = municipio.getNome();
+		this.nomeMesorregiao = municipio.getMicrorregiao().getMesorregiao().getNome();
 	}
 	
 	public void setIdEstado(int idEstado) {

@@ -1,6 +1,6 @@
 package com.evoluum.localidade.dto;
 
-public class EstadoDTO {
+public class Estado {
 	private int id;
 	private String sigla;
 	private Regiao regiao;

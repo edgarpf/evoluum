@@ -1,9 +1,11 @@
 package com.evoluum.localidade.service;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.evoluum.localidade.dto.MunicipioDTO;
 import com.evoluum.localidade.retorno.RetornoCSV;
 import com.evoluum.localidade.retorno.RetornoFactory;
 
@@ -41,5 +44,11 @@ public class LocalidadeServiceTest {
 		doReturn(Optional.of(retorno)).when(retornoFactory).getRetorno("json");
 		doNothing().when(Optional.of(retorno).get()).transformarDados(any(), any());
 		localidadeService.getTodosOsDados("json", response);
+	}
+	
+	@Test
+	public void testGetIdMunicipio() {
+		doReturn(new ArrayList<MunicipioDTO>()).when(wsClienteService).getIdMunicipio(any());
+		assertNotNull(localidadeService.getIdMunicipio("nome"));
 	}
 }

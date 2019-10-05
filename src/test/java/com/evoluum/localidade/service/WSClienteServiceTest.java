@@ -14,10 +14,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import com.evoluum.localidade.dto.EstadoDTO;
+import com.evoluum.localidade.dto.Estado;
 import com.evoluum.localidade.dto.Mesorregiao;
 import com.evoluum.localidade.dto.Microrregiao;
-import com.evoluum.localidade.dto.MunicipioDTO;
+import com.evoluum.localidade.dto.Municipio;
 import com.evoluum.localidade.dto.Regiao;
 
 @RunWith(SpringRunner.class)
@@ -25,6 +25,7 @@ import com.evoluum.localidade.dto.Regiao;
 public class WSClienteServiceTest {
 	
 	private static final int ESTADO_ID = 1;
+	private static final String ESTADO_NOME = "nome estado";
 	
 	@SpyBean
 	private WSClienteService wsClienteService;
@@ -38,42 +39,55 @@ public class WSClienteServiceTest {
 	@Value("${endpoint.municipios}")
 	private String municipiosEndpoint;
 	
+	@Value("${endpoint.todosMunicipios}")
+	private String todosMunicipiosEndpoint;
+	
 	@Test
 	public void testGetTodosOsDados() {
-		EstadoDTO[] arrayEstadoDTO = new EstadoDTO[1];
-		arrayEstadoDTO[0] = gerarEstadoDTO();
-		ResponseEntity<EstadoDTO[]> responseEntityEstadoDTO = new ResponseEntity<EstadoDTO[]>(arrayEstadoDTO, HttpStatus.OK);
-		when(restTemplate.getForEntity(estadosEndpoint, EstadoDTO[].class)).thenReturn(responseEntityEstadoDTO);
+		Estado[] arrayEstado = new Estado[1];
+		arrayEstado[0] = gerarEstado();
+		ResponseEntity<Estado[]> responseEntityEstado = new ResponseEntity<Estado[]>(arrayEstado, HttpStatus.OK);
+		when(restTemplate.getForEntity(estadosEndpoint, Estado[].class)).thenReturn(responseEntityEstado);
 		
-		MunicipioDTO[] arrayMunicipioDTO = new MunicipioDTO[1];
-		arrayMunicipioDTO [0] = gerarMunicipioDTO();
-		ResponseEntity<MunicipioDTO[]> responseEntityMunicipioDTO = new ResponseEntity<MunicipioDTO[]>(arrayMunicipioDTO, HttpStatus.OK);
-		when(restTemplate.getForEntity(String.format(municipiosEndpoint, ESTADO_ID), MunicipioDTO[].class)).thenReturn(responseEntityMunicipioDTO);
+		Municipio[] arrayMunicipio = new Municipio[1];
+		arrayMunicipio [0] = gerarMunicipio();
+		ResponseEntity<Municipio[]> responseEntityMunicipio = new ResponseEntity<Municipio[]>(arrayMunicipio, HttpStatus.OK);
+		when(restTemplate.getForEntity(String.format(municipiosEndpoint, ESTADO_ID), Municipio[].class)).thenReturn(responseEntityMunicipio);
 			
 		assertNotNull(wsClienteService.getTodosOsDados());
 	}
 
-	private MunicipioDTO gerarMunicipioDTO() {
-		MunicipioDTO municipioDTO = new MunicipioDTO();
+	private Municipio gerarMunicipio() {
+		Municipio municipio = new Municipio();
 		Microrregiao microrregiao = new Microrregiao();
 		Mesorregiao mesorregiao = new Mesorregiao();
 		
 		mesorregiao.setNome("mesorregiao teste");
 		microrregiao.setMesorregiao(mesorregiao);
 		
-		municipioDTO.setMicrorregiao(microrregiao);
+		municipio.setMicrorregiao(microrregiao);
+		municipio.setNome(ESTADO_NOME);
 		
-		return municipioDTO;
+		return municipio;
 	}
 
-	private EstadoDTO gerarEstadoDTO() {
-		EstadoDTO estadoDTO = new EstadoDTO();
-		estadoDTO.setId(ESTADO_ID);
+	private Estado gerarEstado() {
+		Estado estado = new Estado();
+		estado.setId(ESTADO_ID);
 		Regiao regiao = new Regiao();
 		
 		regiao.setNome("regiao teste");
-		estadoDTO.setRegiao(regiao);
+		estado.setRegiao(regiao);
 		
-		return estadoDTO;
+		return estado;
+	}
+	
+	@Test
+	public void testGetIdMunicipio() {
+		Municipio[] arrayMunicipio = new Municipio[1];
+		arrayMunicipio[0] = gerarMunicipio();
+		ResponseEntity<Municipio[]> responseEntityMunicipio= new ResponseEntity<Municipio[]>(arrayMunicipio, HttpStatus.OK);
+		when(restTemplate.getForEntity(todosMunicipiosEndpoint, Municipio[].class)).thenReturn(responseEntityMunicipio);	
+		assertNotNull(wsClienteService.getIdMunicipio(ESTADO_NOME));
 	}
 }

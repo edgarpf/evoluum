@@ -1,5 +1,7 @@
 package com.evoluum.localidade.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.evoluum.localidade.dto.MunicipioDTO;
 import com.evoluum.localidade.service.LocalidadeService;
 
 @RestController
@@ -28,5 +31,12 @@ public class LocalidadeController {
 		logger.info("Iniciando requisição para todos os dados.");
 		localidadeService.getTodosOsDados(retorno, response);
 		return ResponseEntity.status(response.getContentType() == null? HttpStatus.NOT_FOUND : HttpStatus.OK).body(null);
+	}
+	
+	@GetMapping("/municipio/{nomeCidade}")
+	public ResponseEntity<List<MunicipioDTO>> getIdMunicipio(@PathVariable String nomeCidade){
+		logger.info("Iniciando requisição para nome de cidade.");
+		List<MunicipioDTO> listaMunicipioDTO = localidadeService.getIdMunicipio(nomeCidade);
+		return ResponseEntity.status(HttpStatus.OK).body(listaMunicipioDTO);
 	}
 }
