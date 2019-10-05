@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -36,8 +35,7 @@ public class RetornoCSV implements Retorno {
 		response.setContentType("text/csv");
 		response.setHeader("Content-Disposition", "attachment; filename=" + FILE_NAME);
 		response.setContentLength(csv.length);
-		ServletOutputStream os = response.getOutputStream();
-		os.write(csv);
+		response.getOutputStream().write(csv);;
 	}
 
 	public StringBuilder gerarTexto(List<LocalDTO> list) {
