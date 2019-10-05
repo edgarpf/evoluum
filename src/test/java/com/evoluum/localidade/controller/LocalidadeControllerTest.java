@@ -1,7 +1,7 @@
 package com.evoluum.localidade.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,13 +31,14 @@ public class LocalidadeControllerTest {
 	
 	@Test
 	public void testGetTodosOsDados404() {
-		when(localidadeService.getTodosOsDados("tipo_dado_inexistente", response)).thenReturn(null);
+		doNothing().when(localidadeService).getTodosOsDados("tipo_dado_inexistente", response);
 		assertEquals(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null).getStatusCode(), localidadeController.getTodosOsDados("tipo_dado_inexistente", response).getStatusCode());
 	}
 	
 	@Test
 	public void testGetTodosOsDados() {
-		when(localidadeService.getTodosOsDados("json", response)).thenReturn(new Object());
+		when(response.getContentType()).thenReturn("application/json");
+		doNothing().when(localidadeService).getTodosOsDados("json", response);
 		assertEquals(ResponseEntity.status(HttpStatus.OK).body(null).getStatusCode(), localidadeController.getTodosOsDados("json", response).getStatusCode());
 	}
 }

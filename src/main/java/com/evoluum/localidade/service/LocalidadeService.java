@@ -23,30 +23,11 @@ public class LocalidadeService {
 	@Autowired
 	private WSClienteService wsClienteService;
 	
-	public Object getTodosOsDados(String tipo, HttpServletResponse response) {
-		Object dados = null;
-		
-		if(tipo.equals("json")) {
-			logger.info("Tipo json suportado.");
-			dados = wsClienteService.getTodosOsDados() ;
-		} else {
-			dados = gerarDados(tipo, response, dados);
-		}
-		
-		return dados;
-	}
-
-	public Object gerarDados(String tipo, HttpServletResponse response, Object dados) {
+	public void getTodosOsDados(String tipo, HttpServletResponse response) {
 		Optional<Retorno> optionalRetorno = retornoFactory.getRetorno(tipo);
 		if(optionalRetorno.isPresent()) {
 			logger.info("Tipo " + tipo + " suportado.");
-			dados = transformarDados(response, optionalRetorno);
+			optionalRetorno.get().transformarDados(wsClienteService.getTodosOsDados(), response);		
 		}
-		return dados;
 	}
-
-	public Object transformarDados(HttpServletResponse response, Optional<Retorno> optionalRetorno) {
-		return optionalRetorno.get().transformarDados(wsClienteService.getTodosOsDados(), response);
-	}
-	
 }

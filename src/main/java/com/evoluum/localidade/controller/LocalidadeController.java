@@ -26,7 +26,7 @@ public class LocalidadeController {
 	@GetMapping("/todos/{retorno}")
 	public ResponseEntity<Object> getTodosOsDados(@PathVariable String retorno, HttpServletResponse response){
 		logger.info("Iniciando requisição para todos os dados.");
-		Object dados = localidadeService.getTodosOsDados(retorno, response);
-		return ResponseEntity.status(dados == null? HttpStatus.NOT_FOUND : HttpStatus.OK).body(dados);
+		localidadeService.getTodosOsDados(retorno, response);
+		return ResponseEntity.status(response.getContentType() == null? HttpStatus.NOT_FOUND : HttpStatus.OK).body(null);
 	}
 }

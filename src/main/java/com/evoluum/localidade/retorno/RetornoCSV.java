@@ -17,17 +17,15 @@ public class RetornoCSV implements Retorno {
 	private static final String FILE_NAME = "dados.csv";
 	
 	@Override
-	public Object transformarDados(List<LocalDTO> list, HttpServletResponse response) {
+	public void transformarDados(List<LocalDTO> list, HttpServletResponse response) {
 		try {
-			logger.info("Gerando arquivo csv.");
+			logger.info("Gerando arquivo CSV.");
 			gerarAquivo(response, gerarTexto(list));
-			logger.info("Arquivo csv gerado com sucesso.");
+			logger.info("Arquivo CSV gerado com sucesso.");
 		} catch (IOException e) {
-			logger.info("Falha na geração do arquivo csv.");
+			logger.info("Falha na geração do arquivo CSV.");
 			logger.error(e.getMessage());
 		}
-
-		return null;
 	}
 
 	public void gerarAquivo(HttpServletResponse response, StringBuilder texto) throws IOException {

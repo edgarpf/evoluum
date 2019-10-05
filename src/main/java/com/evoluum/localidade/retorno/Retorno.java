@@ -7,5 +7,5 @@ import javax.servlet.http.HttpServletResponse;
 import com.evoluum.localidade.dto.LocalDTO;
 
 public interface Retorno {
-	public Object transformarDados(List<LocalDTO> list, HttpServletResponse response);
+	public void transformarDados(List<LocalDTO> list, HttpServletResponse response);
 }
