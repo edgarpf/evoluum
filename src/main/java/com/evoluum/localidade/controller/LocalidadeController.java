@@ -36,7 +36,7 @@ public class LocalidadeController {
 	@GetMapping("/municipio/{nomeCidade}")
 	public ResponseEntity<List<MunicipioDTO>> getIdMunicipio(@PathVariable String nomeCidade){
 		logger.info("Iniciando requisição para nome de cidade.");
-		List<MunicipioDTO> listaMunicipioDTO = localidadeService.getIdMunicipio(nomeCidade);
+		List<MunicipioDTO> listaMunicipioDTO = localidadeService.getIdMunicipio(nomeCidade.trim().toLowerCase());
 		return ResponseEntity.status(HttpStatus.OK).body(listaMunicipioDTO);
 	}
 }
