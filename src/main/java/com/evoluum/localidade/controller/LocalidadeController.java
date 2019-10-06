@@ -31,7 +31,7 @@ public class LocalidadeController {
 	private LocalidadeService localidadeService;
 	
 	@GetMapping("/todos/{retorno}")
-	@ApiOperation(value = "Retornar todos os municípios. Em caso de timeout de 15seg uma lista vazia é retornada.")
+	@ApiOperation(value = "Retorna todos os municípios. Em caso de timeout de 15seg uma lista vazia é retornada.")
 	public ResponseEntity<Object> getTodosOsDados(@PathVariable String retorno, HttpServletResponse response){
 		logger.info("Iniciando requisição para todos os dados.");
 		localidadeService.getTodosOsDados(retorno, response);
