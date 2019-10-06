@@ -31,7 +31,7 @@ public class LocalidadeController {
 	private LocalidadeService localidadeService;
 	
 	@GetMapping("/todos/{retorno}")
-	@ApiOperation(value = "Todos os municípios")
+	@ApiOperation(value = "Retornar todos os municípios. Em caso de timeout de 15seg uma lista vazia é retornada.")
 	public ResponseEntity<Object> getTodosOsDados(@PathVariable String retorno, HttpServletResponse response){
 		logger.info("Iniciando requisição para todos os dados.");
 		localidadeService.getTodosOsDados(retorno, response);
@@ -39,7 +39,7 @@ public class LocalidadeController {
 	}
 	
 	@GetMapping("/municipio/{nomeCidade}")
-	@ApiOperation(value = "Busca de município por nome")
+	@ApiOperation(value = "Busca de município por nome. As respostas são armazenadas em cache que é renovado a cada minuto.")
 	public ResponseEntity<List<MunicipioDTO>> getIdMunicipio(@PathVariable String nomeCidade){
 		logger.info("Iniciando requisição para nome de cidade.");
 		List<MunicipioDTO> listaMunicipioDTO = localidadeService.getIdMunicipio(nomeCidade.trim().toLowerCase());
