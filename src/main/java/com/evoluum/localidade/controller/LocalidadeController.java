@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.evoluum.localidade.dto.MunicipioDTO;
 import com.evoluum.localidade.service.LocalidadeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/api/evoluum/localidade")
+@Api(value = "Localidade")
 public class LocalidadeController {
 	
 	private Logger logger = LoggerFactory.getLogger(LocalidadeController.class);
@@ -27,6 +31,7 @@ public class LocalidadeController {
 	private LocalidadeService localidadeService;
 	
 	@GetMapping("/todos/{retorno}")
+	@ApiOperation(value = "Todos os municípios")
 	public ResponseEntity<Object> getTodosOsDados(@PathVariable String retorno, HttpServletResponse response){
 		logger.info("Iniciando requisição para todos os dados.");
 		localidadeService.getTodosOsDados(retorno, response);
@@ -34,6 +39,7 @@ public class LocalidadeController {
 	}
 	
 	@GetMapping("/municipio/{nomeCidade}")
+	@ApiOperation(value = "Busca de município por nome")
 	public ResponseEntity<List<MunicipioDTO>> getIdMunicipio(@PathVariable String nomeCidade){
 		logger.info("Iniciando requisição para nome de cidade.");
 		List<MunicipioDTO> listaMunicipioDTO = localidadeService.getIdMunicipio(nomeCidade.trim().toLowerCase());
