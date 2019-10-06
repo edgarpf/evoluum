@@ -18,5 +18,5 @@ As respostas são armazenas em cache que é reiniciado a cada minuto.
 
 ## /api/evoluum/localidade/todos/{retorno}
 
-Esse endpoint irá retornar dados de todos os municípios de acordo com a documentação. 
+Esse endpoint irá retornar dados de todos os municípios de acordo com a documentação. Os valores aceitos para o **{retorno}** são **json** e **csv**
 Caso haja timeout de 15 seg uma lista vazia é retornada.
