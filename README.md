@@ -4,7 +4,7 @@
 
 Com o Maven e o Java instalados na sua máquina faça:
 
-```js
+```
 mvn clean package
 java -jar target/localidade-0.0.1-SNAPSHOT.jar
 ```
